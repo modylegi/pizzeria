@@ -82,6 +82,8 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public Cookie authenticate(AuthenticateRequest authenticateRequest) {
+        User user = userRepository.findUserByEmail(authenticateRequest.getEmail()).orElseThrow();
+
         Authentication auth = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         authenticateRequest.getEmail(),
@@ -91,7 +93,7 @@ public class AuthServiceImpl implements AuthService {
 
         String token = createToken();
         System.out.println(auth.isAuthenticated());
-        saveToken(userRepository.findUserByEmail(authenticateRequest.getEmail()).orElseThrow(), token);
+        saveToken(user, token);
         Cookie authCookie = new Cookie(CookieAuthFilter.COOKIE_NAME, token);
         authCookie.setHttpOnly(true);
         authCookie.setSecure(true);

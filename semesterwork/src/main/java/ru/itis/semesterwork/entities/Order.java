@@ -1,6 +1,8 @@
 package ru.itis.semesterwork.entities;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -40,10 +42,11 @@ public class Order {
             columnDefinition = "DATE"
     )
     private LocalDateTime time;
-
+    @JsonIgnore
     @ManyToMany
     @JoinColumn(name = "product_id")
     private List<Product> products;
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_email")
     private User user;

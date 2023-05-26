@@ -36,14 +36,14 @@
     /*    color: #ffffff;*/
     /*}*/
     hr{
-        width: 66%;
+        width: auto;
         float: right;
         margin-right: 5%;
     }
     .checkout{
         float: right;
         margin-right: 5%;
-        width: 28%;
+        width: 100%;
     }
     .total{
         width: 100%;
@@ -64,7 +64,7 @@
         line-height: 10px;
     }
     .total-amount{
-        font-size: 36px;
+        font-size: 22px;
         font-family: ‘Open Sans’;
         font-weight: 900;
         color: #202020;
@@ -87,7 +87,10 @@
         font-family: ‘Open Sans’;
         font-weight: 600;
         color: #ffffff;
+
     }
+
+
     /*body{*/
     /*    margin: 0;*/
     /*    padding: 0;*/
@@ -113,10 +116,10 @@
 
     }
     .table-thead{
-        width: 70%;
+        width: 100%;
     }
     .table-tbody{
-        width: 70%;
+        width: 100%;
     }
     /*.btn-inc-dec{*/
     /*    width: 40px;*/
@@ -136,11 +139,23 @@
     /*    margin-left: auto;*/
     /*    margin-right: auto;*/
     /*}*/
+    /*.controls col-sm-9{*/
+    /*    font-size: 22px;*/
+    /*    font-family: ‘Open Sans’;*/
+    /*    font-weight: 700;*/
+    /*    color: #202020;*/
+    /*}*/
 
 
 </style>
 <t:mainLayout title="Pizza Cart">
-    <form id="loginForm" class="form-horizontal" action="<c:url value="/create-order"/>" method="POST">
+    <form id="loginForm" class="form-horizontal" action="/api/v1/order" method="POST">
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+
+
 
 
     <div class="Cart-Container">
@@ -148,12 +163,11 @@
         <table class="order-table">
             <thead class="table-thead">
             <tr>
-                <th scope="col">Название пиццы</th>
-                <th scope="col">Кол-во</th>
+                <th scope="col">Название</th>
+<%--                <th scope="col">Кол-во</th>--%>
                 <th scope="col">Цена</th>
-                <th scope="col">Сумма</th>
-
-<%--                <th scope="col">Cancel</th>--%>
+<%--                <th scope="col">Убрать</th>--%>
+<%--                <th scope="col">Убрать</th>--%>
             </tr>
             </thead>
 
@@ -162,13 +176,13 @@
             <tbody class="table-tbody">
             <tr>
                 <td>${product.getName()}</td>
-                <td>
-                    <div class="counter">
-                        <a class="btn-inc-dec" href="quantityIncDecServlet?action=dec&id=${product.getId()}">-&nbsp&nbsp</a>
-<%--                        <div class="count"> ${product.getQuantity()} </div>--%>
-                        <a class="btn-inc-dec" href="quantityIncDecServlet?action=inc&id=${product.getId()}">&nbsp&nbsp+</a>
-                    </div>
-                </td>
+<%--                <td>--%>
+<%--                    <div class="counter">--%>
+<%--&lt;%&ndash;                        <a class="btn-inc-dec" href="quantityIncDecServlet?action=dec&id=${product.getId()}">-&nbsp&nbsp</a>&ndash;%&gt;--%>
+<%--&lt;%&ndash;                        <div class="count"> ${product.getQuantity()} </div>&ndash;%&gt;--%>
+<%--&lt;%&ndash;                        <a class="btn-inc-dec" href="quantityIncDecServlet?action=inc&id=${product.getId()}">&nbsp&nbsp+</a>&ndash;%&gt;--%>
+<%--                    </div>--%>
+<%--                </td>--%>
                 <td>${product.getPrice()}</td>
 <%--                <td>${product.getTotalSum()}</td>--%>
                 <td><a href="/remove-from-cart/${product.getId()}" class="btn btn-sm btn-danger">Убрать</a></td>
@@ -180,18 +194,32 @@
             </c:forEach>
 
 
+
         </table>
         <hr>
         <div class="checkout">
-<%--            <div class="total">--%>
-<%--                <div>--%>
-<%--                    <div class="Subtotal">Сумма заказа</div>--%>
-<%--                    <div class="items">${(totalCartItems>0)?totalCartItems:0} блюд(а)</div>--%>
-<%--                </div>--%>
-<%--                <div class="total-amount">${(totalCartPrice>0)?totalCartPrice:0} ₽</div>--%>
-<%--            </div>--%>
-            <a class="button-make-order" href="CheckOutServlet">Оформить заказ</a>
-            <button type="submit" class="btn btn-success">Sign up</button>
+            <div class="total">
+
+                <div>
+
+                    <div class="Subtotal">Сумма заказа</div>
+                    <div class="items">${totalCount} блюд(а)</div>
+                    <label class="address" for="address">Адрес</label>
+                    <div class="controls col-sm-9">
+                        <input id="address" name="address" class="address" type="text" value=""/>
+                    </div>
+
+<%--                    <div class="controls col-sm-9">--%>
+<%--                        <input id="address" name="address" class="address" type="text" value=""/>--%>
+<%--                    </div>--%>
+                </div>
+<%--                <div class="H"> </div>--%>
+                <div class="total-amount">${totalSum} ₽</div>
+            </div>
+<%--            <a class="button-make-order" href="<c:url value="create-order"/>" method="POST">Оформить заказ</a>--%>
+<%--            <a class="button-make-order" href="/create-order">Оформить заказ</a>--%>
+<%--            <button type="submit" class="btn btn-success">Sign up</button>--%>
+            <button type="submit" class="button-make-order">Оформить заказ</button>
         </div>
         <hr>
         <div>

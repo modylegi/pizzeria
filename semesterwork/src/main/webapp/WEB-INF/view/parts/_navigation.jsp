@@ -104,6 +104,8 @@
         -webkit-box-pack: center;
         justify-content: center;
     }
+
+
     .cpUbDl {
         outline: none;
         border: none;
@@ -143,7 +145,7 @@
         display: inline-block;
         text-align: center;
         align-items: flex-start;
-        cursor: default;
+        cursor: pointer;
         box-sizing: border-box;
         background-color: buttonface;
         margin: 0em;
@@ -157,44 +159,135 @@
         box-sizing: border-box;
     }
 
+    .add-to-cart-btn {
+        /* Font & Text */
+        font-family: Dodo, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        font-size: 16px;
+        font-style: normal;
+        font-variant: normal;
+        font-weight: 500;
+        letter-spacing: normal;
+        line-height: 24px;
+        text-decoration: none solid rgb(209, 87, 0);
+        text-align: center;
+        text-indent: 0px;
+        text-transform: none;
+        vertical-align: baseline;
+        white-space: normal;
+        word-spacing: 0px;
+
+        /* Color & Background */
+        background-attachment: scroll;
+        background-color: rgb(255, 240, 230);
+        background-image: none;
+        background-position: 0% 0%;
+        background-repeat: repeat;
+        color: rgb(209, 87, 0);
+
+        /* Box */
+        height: 40px;
+        width: 120px;
+        border: 0px none rgb(209, 87, 0);
+        border-top: 0px none rgb(209, 87, 0);
+        border-right: 0px none rgb(209, 87, 0);
+        border-bottom: 0px none rgb(209, 87, 0);
+        border-left: 0px none rgb(209, 87, 0);
+        margin: 0px;
+        padding: 8px 20px;
+        max-height: none;
+        min-height: auto;
+        max-width: none;
+        min-width: 120px;
+
+        /* Positioning */
+        position: relative;
+        top: 0px;
+        bottom: 0px;
+        right: 0px;
+        left: 0px;
+        float: none;
+        display: block;
+        clear: none;
+        z-index: auto;
+
+        /* List */
+        list-style-image: none;
+        list-style-type: disc;
+        list-style-position: outside;
+
+        /* Table */
+        border-collapse: separate;
+        border-spacing: 0px 0px;
+        caption-side: top;
+        empty-cells: show;
+        table-layout: auto;
+
+        /* Miscellaneous */
+        overflow: hidden;
+        cursor: pointer;
+        visibility: visible;
+
+        /* Effects */
+        transform: none;
+        transition: background-color 0.2s ease-out 0s, color 0.2s ease-out 0s;
+        outline: rgb(255, 0, 0) dashed 1px;
+        outline-offset: 0px;
+        box-sizing: border-box;
+        resize: none;
+        text-shadow: none;
+        text-overflow: clip;
+        word-wrap: normal;
+        box-shadow: none;
+        border-top-left-radius: 9999px;
+        border-top-right-radius: 9999px;
+        border-bottom-left-radius: 9999px;
+        border-bottom-right-radius: 9999px;
+    }
 
 
-    </style>
+
+
+
+
+
+</style>
 
 
 
 <nav class="xlo7eb-7 hnaHbJ">
     <div class="grid">
         <ul class="xlo7eb-1 dklXKv">
-            <li class="xlo7eb-2 cxhikF"><a href="<c:url value="products"/>">Home</a></li>
+            <li class="xlo7eb-2 cxhikF"><a href="/products">Home</a></li>
             <sec:authorize access="!isAuthenticated()">
                 <li class="xlo7eb-2 cxhikF"><a href="<c:url value="sign-in"/>">Sign in</a></li>
                 <li class="xlo7eb-2 cxhikF"><a href="<c:url value="sign-up"/>">Sign Up</a></li>
-                <li class="xlo7eb-2 cxhikF">
-                    <a class="nav-link disabled">
-                        <span class="hidden-xs" sec:authentication="name">
+<%--                <li class="xlo7eb-2 cxhikF">--%>
+<%--                    <a class="nav-link disabled">--%>
+<%--                        <span class="hidden-xs" <sec:authentication property="principal.username" />>--%>
 
-                        </span>
-                    </a></li>
+<%--                        </span>--%>
+<%--                    </a></li>--%>
 
             </sec:authorize>
 
             <sec:authorize access="isAuthenticated()">
-                <sec:authorize access="hasRole('ADMIN')">
-                                <li class="xlo7eb-2 cxhikF"><a href="<c:url value="create-product"/>">Create pizza</a></li>
-                                <li class="xlo7eb-2 cxhikF"><a href="<c:url value="OrdersServlet"/>">Orders</a></li>
-                                <li class="xlo7eb-2 cxhikF"><a href="<c:url value="UserDetailsServlet"/>">Users</a></li>
+                <sec:authorize access="hasAuthority('ADMIN')">
+                                <li class="xlo7eb-2 cxhikF"><a href="/management/create-product">Create product</a></li>
+                                <li class="xlo7eb-2 cxhikF"><a href="/management/orders">Orders</a></li>
+                                <li class="xlo7eb-2 cxhikF"><a href="/management/users">Users</a></li>
                 </sec:authorize>
-                <li class="xlo7eb-2 cxhikF"><a href="<c:url value="/logout"/>">Sign Out</a></li>
+                <li class="xlo7eb-2 cxhikF"><a href="<c:url value="/auth/sign-out"/>">Sign Out</a></li>
                 <sec:authorize access="hasAuthority('USER')">
                     <li class="xlo7eb-2 cxhikF"><a href="<c:url value="/UserOrders"/>">My Orders</a></li>
                 </sec:authorize>
+                <li class="xlo7eb-2 cxhikF"><a><sec:authentication property="principal.username" /></a>
+                     
+
+                        </li>
 
 <%--                <li class="xlo7eb-2 cxhikF">--%>
 <%--                    <a class="nav-link disabled">--%>
-<%--                        <span class="hidden-xs" sec:authentication="name">--%>
-
-<%--                        </span>--%>
+<%--                        <span class="hidden-xs" sec:authentication property="principal.username"></span>--%>
 <%--                    </a></li>--%>
 
 
@@ -205,9 +298,11 @@
             <div class="sc-1iu20ya-0 fvOEWC">
                 <div></div>
             </div>
-            <c:if test="${user.getRole() != 'admin' || user == null}">
+            <sec:authorize access="isAuthenticated()">
+                <sec:authorize access="hasAuthority('USER')">
                 <button type="button" data-type="primary" data-size="medium" class="sc-1rmt3mq-0 cpUbDl xlo7eb-10 ieYvah"><a href="<c:url value="/cart"/>">Cart</a></button>
-            </c:if>
+                </sec:authorize>
+            </sec:authorize>
         </div>
     </div>
 </nav>

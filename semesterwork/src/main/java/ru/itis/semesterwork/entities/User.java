@@ -88,6 +88,9 @@ public class User  {
     @OneToMany(mappedBy = "user")
     @ToString.Exclude
     private List<Order> order;
+    @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE)
+    @ToString.Exclude
+    private List<DeliveryAddress> deliveryAddresses;
 
 
 

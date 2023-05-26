@@ -20,6 +20,7 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 import ru.itis.semesterwork.security.filters.CookieAuthFilter;
 //import ru.itis.semesterwork.security.filters.EncodingFilter;
 //import ru.itis.semesterwork.security.filters.UsernamePasswordAuthFilter;
+//import ru.itis.semesterwork.security.filters.EncodingFilter;
 import ru.itis.semesterwork.services.LogoutService;
 
 
@@ -48,21 +49,11 @@ public class SecurityFilterChainConfig {
                 .csrf()
                 .disable()
                 .authorizeRequests()
-                .antMatchers(
-                        "/products",
-                        "/sign-in",
-                        "/sign-up",
-                        "/api/v1/auth/sign-in",
-                        "/api/v1/auth/sign-up",
-                        "/add-to-cart/{id}",
-                        "/remove-from-cart/{id}",
-                        "/create-order",
-                        "/cart",
-                        "/logout"
-                )
+                .antMatchers("/**")
                 .permitAll()
-                .antMatchers("/management/**").hasAuthority("ADMIN")
+                .antMatchers("/management/**","/management/api/create-product").hasAuthority("ADMIN")
                 .antMatchers("/create-order", "/cart").hasAuthority("USER")
+
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -78,7 +69,7 @@ public class SecurityFilterChainConfig {
 
                 .and()
                 .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+                .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
                 .and()
                 .exceptionHandling().authenticationEntryPoint(customAuthenticationEntryPoint)
                 .and()
@@ -87,7 +78,7 @@ public class SecurityFilterChainConfig {
 //                .addFilterBefore(usernamePasswordAuthFilter, BasicAuthenticationFilter.class)
                 .addFilterBefore(cookieAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .logout().deleteCookies(cookieAuthFilter.COOKIE_NAME)
-                .logoutUrl("/logout")
+                .logoutUrl("/auth/sign-out")
                 .addLogoutHandler(logoutService)
                 .logoutSuccessHandler((request, response, authentication) -> SecurityContextHolder.clearContext())
 

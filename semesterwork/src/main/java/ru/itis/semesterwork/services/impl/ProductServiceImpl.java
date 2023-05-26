@@ -11,6 +11,7 @@ import ru.itis.semesterwork.repositories.ProductRepository;
 import ru.itis.semesterwork.services.ProductService;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -45,27 +46,25 @@ public class ProductServiceImpl implements ProductService {
         productRepository.deleteById(productId);
     }
 
-    @Transactional(isolation = Isolation.SERIALIZABLE)
-    @Override
-    public ProductDto updateProduct(Long productId, String name, String description, int price) {
-        Product product = productRepository.findById(productId).orElseThrow(() -> new IllegalStateException(
-                "product with id " + productId + " does not exist"
-        ));
-        if(name != null && name.length() > 0 && !Objects.equals(product.getName(), name)){
-            product.setName(name);
-        }
-        if(description != null && description.length() > 0 && !Objects.equals(product.getDescription(), description)){
-            product.setDescription(description);
-        }
-        if(price != 0  && !Objects.equals(product.getPrice(), price)){
-            product.setPrice(price);
-        }
-        return productMapper.toDto(product);
-    }
+//    @Transactional(isolation = Isolation.SERIALIZABLE)
+//    @Override
+//    public ProductDto updateProduct(Product product) {
+//        Optional<Product> updatingProduct = productRepository.findById(product.getId());
+//        if(updatingProduct.isPresent()){
+//            productRepository.deleteById(productId);
+//
+//            throw new IllegalStateException("product with id " + productId + " not exists");
+//        }
+//        throw new IllegalStateException("product with id " + productId + " not exists");
+//
+//
+//        return productMapper.toDto(productRepository.updateProduct(productRepository.findById(productId).orElseThrow()));
+//
+//    }
 
     @Override
     public ProductDto findById(Long id) {
-        Product product = productRepository.findById(id).orElseThrow();
+        Product product = productRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Product not found"));
         return productMapper.toDto(product);
     }
 }

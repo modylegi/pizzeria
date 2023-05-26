@@ -34,10 +34,9 @@ public class ApiController {
 
 
     @PostMapping("/auth/sign-in")
-    public ModelAndView signIn(AuthenticateRequest authenticateRequest, HttpServletResponse servletResponse){
+    public String signIn(AuthenticateRequest authenticateRequest, HttpServletResponse servletResponse){
         servletResponse.addCookie(authService.authenticate(authenticateRequest));
-
-        return new ModelAndView("redirect:/products" );
+        return "redirect:/products" ;
 
     }
 

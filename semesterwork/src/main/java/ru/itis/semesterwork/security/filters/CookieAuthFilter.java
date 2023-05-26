@@ -23,6 +23,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -31,6 +32,7 @@ import java.util.stream.Stream;
 @Component
 @RequiredArgsConstructor
 @Slf4j
+
 public class CookieAuthFilter extends OncePerRequestFilter {
     private final TokenRepository tokenRepository;
     private final CustomUserDetailsService customUserDetailsService;
@@ -42,6 +44,8 @@ public class CookieAuthFilter extends OncePerRequestFilter {
             @NotNull HttpServletRequest httpServletRequest,
             @NotNull HttpServletResponse httpServletResponse,
             @NotNull FilterChain filterChain) throws ServletException, IOException {
+
+
 
         Optional<Cookie> cookieAuth = Stream.of(Optional.ofNullable(httpServletRequest.getCookies()).orElse(new Cookie[0]))
                 .filter(cookie -> COOKIE_NAME.equals(cookie.getName()))

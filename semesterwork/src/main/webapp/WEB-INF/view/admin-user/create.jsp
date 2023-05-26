@@ -12,29 +12,30 @@
     <%--        <input type="text" id="pizza-price" name="pizza-price">--%>
 
     <%--    </form>--%>
-    <form id="createForm" class="form-horizontal" action="<c:url value="addPizza"/>" method="POST" enctype="multipart/form-data">
+    <form id="createForm" class="form-horizontal" action="<c:url value="api/create-product"/>" method="POST" enctype="multipart/form-data">
 
 
         <div class="form-group">
-            <label class="control-label col-sm-3" for="pizza-name">Pizza name</label>
+            <label class="control-label col-sm-3" for="name">Pizza name</label>
             <div class="controls col-sm-9">
-                <input id="pizza-name" name="pizza-name" class="form-control" type="text" value=""/>
+                <input id="name" name="name" class="form-control" type="text" value=""/>
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-sm-3" for="pizza-ingredients">Ingredients</label>
+            <label class="control-label col-sm-3" for="description">Ingredients</label>
             <div class="controls col-sm-9">
-                <input id="pizza-ingredients" name="pizza-ingredients" class="form-control" type="text" value=""/>
+                <input id="description" name="description" class="form-control" type="text" value=""/>
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-sm-3" for="pizza-price">Price</label>
+            <label class="control-label col-sm-3" for="price">Price</label>
             <div class="controls col-sm-9">
-                <input id="pizza-price" name="pizza-price" class="form-control" type="text" value=""/>
+                <input id="price" name="price" class="form-control" type="number" value=""/>
             </div>
         </div>
         <div class="form-group">
-            <input type="file" name="file" />
+<%--            <input type="file" name="pathToPhoto" />--%>
+            <input type="file" name="image" accept="image/*" class="form-control-file">
         </div>
         <button type="submit" class="btn btn-success">Confirm</button>
 

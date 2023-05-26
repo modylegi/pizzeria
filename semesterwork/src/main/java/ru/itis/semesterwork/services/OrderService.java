@@ -2,6 +2,7 @@ package ru.itis.semesterwork.services;
 
 import ru.itis.semesterwork.dto.OrderDto;
 import ru.itis.semesterwork.dto.ProductDto;
+import ru.itis.semesterwork.entities.Order;
 import ru.itis.semesterwork.entities.Product;
 
 import javax.servlet.http.HttpServletRequest;

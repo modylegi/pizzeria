@@ -41,7 +41,11 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<OrderDto> getOrders() {
-        return orderMapper.toDto(orderRepository.findAll());
+
+        List<Order> orders =  orderRepository.findAll();
+
+        return OrderDto.from(orders);
+
     }
 
     @Override
